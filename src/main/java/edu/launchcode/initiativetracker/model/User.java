@@ -1,5 +1,6 @@
 package edu.launchcode.initiativetracker.model;
 
+import java.util.Map;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ public class User {
     
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     private String email;
 
@@ -92,6 +93,10 @@ public class User {
             ", username='" + getUsername() + "'" +
             ", password='" + getPassword() + "'" +
             "}";
+    }
+
+    public Map<String, ?> getId() {
+        return null;
     }
 
 }
