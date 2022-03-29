@@ -3,9 +3,9 @@ package edu.launchcode.initiativetracker.data;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import edu.launchcode.initiativetracker.model.User;
+import edu.launchcode.initiativetracker.model.CreatedCharacter;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer>{
-    User findByEmail(String email);
+public interface CreatedCharacterRespository extends CrudRepository<CreatedCharacter, Integer>{
+    
 }

@@ -25,4 +25,11 @@ public class CreateAccountController {
         User newUser = userRepository.save(user);
         return ResponseEntity.ok().body(newUser);
     }
+
+    @PostMapping(value = "/getAccountByEmail")
+    public ResponseEntity<User> returnUser (@RequestBody User user) throws URISyntaxException {
+        System.out.println(user.getEmail());
+        User account = userRepository.findByEmail(user.getEmail());
+        return ResponseEntity.ok().body(account);
+    }
 }
