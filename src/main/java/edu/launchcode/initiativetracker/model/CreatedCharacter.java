@@ -1,11 +1,14 @@
 package edu.launchcode.initiativetracker.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 
 @Entity
@@ -19,6 +22,9 @@ public class CreatedCharacter {
     private String name;
     private Integer initiativeMod;
     private Integer armorClass;
+
+    @ManyToMany(mappedBy = "characters")
+    private final List<Encounter> encounters = new ArrayList<>();
 
 
     public CreatedCharacter() {
@@ -81,6 +87,15 @@ public class CreatedCharacter {
     public CreatedCharacter armorClass(Integer armorClass) {
         setArmorClass(armorClass);
         return this;
+    }
+
+
+    public List<Encounter> getEncounters() {
+        return this.encounters;
+    }
+
+    public void addEncounter(Encounter encounter){
+        encounters.add(encounter);
     }
 
     @Override

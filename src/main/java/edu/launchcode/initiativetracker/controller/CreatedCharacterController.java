@@ -18,7 +18,7 @@ public class CreatedCharacterController {
     @Autowired
     private CreatedCharacterRespository createdCharacterRespository;
 
-    @PostMapping(value = "/createCharacter", consumes = "application/json")
+    @PostMapping(value = "/create", consumes = "application/json")
     public ResponseEntity<CreatedCharacter> createCharacter(@RequestBody CreatedCharacter createdCharacter) {
         CreatedCharacter newCharacter = createdCharacterRespository.save(createdCharacter);
         return ResponseEntity.ok().body(newCharacter);
