@@ -36,7 +36,9 @@ public class EncounterController {
     }
 
     @PostMapping(value="/delete", consumes="application/json")
-    public void deleteEncounter (@RequestBody Encounter encounter) {
+    public ResponseEntity<Boolean> deleteEncounter (@RequestBody Encounter encounter) {
         encounterRepository.delete(encounter);
+        Boolean deleted = !(encounterRepository.existsById(encounter.getId()));
+        return ResponseEntity.ok().body(deleted);
     }
 }
