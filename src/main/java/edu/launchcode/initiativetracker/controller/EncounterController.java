@@ -34,4 +34,9 @@ public class EncounterController {
         encounterRepository.findAll().forEach(encounters::add);
         return ResponseEntity.ok().body(encounters);            
     }
+
+    @PostMapping(value="/delete", consumes="application/json")
+    public void deleteEncounter (@RequestBody Encounter encounter) {
+        encounterRepository.delete(encounter);
+    }
 }
