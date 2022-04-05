@@ -2,6 +2,7 @@ package edu.launchcode.initiativetracker.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,4 +42,14 @@ public class EncounterController {
         Boolean deleted = !(encounterRepository.existsById(encounter.getId()));
         return ResponseEntity.ok().body(deleted);
     }
+
+    @PostMapping(value="/addCharacter", consumes="application/json")
+    public ResponseEntity<Encounter> addCharacter (@RequestBody Encounter encounter) {
+
+        Optional<Encounter> optEncounter = encounterRepository.findById(encounter.getId());
+        Encounter encounterToUpdate = optEncounter.get();
+        encounterToUpdate.getCharacters().add(encounter.getCharacters().get(encounter.getCharacters().size()-1));
+        return ResponseEntity.ok().body(encounterToUpdate);
+    }
+
 }
