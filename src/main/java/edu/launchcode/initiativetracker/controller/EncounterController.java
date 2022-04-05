@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.launchcode.initiativetracker.data.CreatedCharacterRespository;
 import edu.launchcode.initiativetracker.data.EncounterRepository;
+import edu.launchcode.initiativetracker.model.CreatedCharacter;
 import edu.launchcode.initiativetracker.model.Encounter;
 
 @CrossOrigin
@@ -22,6 +24,8 @@ import edu.launchcode.initiativetracker.model.Encounter;
 public class EncounterController {
     @Autowired
     private EncounterRepository encounterRepository;
+
+    @Autowired CreatedCharacterRespository createdCharacterRespository;
     
     @PostMapping(value="/create", consumes="application/json")
     public ResponseEntity<Encounter> createEncounter(@RequestBody Encounter encounter) {
@@ -47,8 +51,14 @@ public class EncounterController {
     public ResponseEntity<Encounter> addCharacter (@RequestBody Encounter encounter) {
 
         Optional<Encounter> optEncounter = encounterRepository.findById(encounter.getId());
+        Optional<CreatedCharacter> optCharacter = createdCharacterRespository.findById(encounter.getCharacters().get(encounter.getCharacters().size()-1).getId());
+
         Encounter encounterToUpdate = optEncounter.get();
-        encounterToUpdate.getCharacters().add(encounter.getCharacters().get(encounter.getCharacters().size()-1));
+        CreatedCharacter characterToAdd = optCharacter.get();
+
+        encounterToUpdate.addCharacter(characterToAdd);
+        encounterRepository.save(encounterToUpdate);
+
         return ResponseEntity.ok().body(encounterToUpdate);
     }
 
