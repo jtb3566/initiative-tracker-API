@@ -49,17 +49,14 @@ public class EncounterController {
 
     @PostMapping(value="/addCharacter", consumes="application/json")
     public ResponseEntity<Encounter> addCharacter (@RequestBody Encounter encounter) {
+        Encounter updatedEncounter = encounterRepository.save(encounter);
+        return ResponseEntity.ok().body(updatedEncounter);
+    }
 
-        Optional<Encounter> optEncounter = encounterRepository.findById(encounter.getId());
-        Optional<CreatedCharacter> optCharacter = createdCharacterRespository.findById(encounter.getCharacters().get(encounter.getCharacters().size()-1).getId());
-
-        Encounter encounterToUpdate = optEncounter.get();
-        CreatedCharacter characterToAdd = optCharacter.get();
-
-        encounterToUpdate.addCharacter(characterToAdd);
-        encounterRepository.save(encounterToUpdate);
-
-        return ResponseEntity.ok().body(encounterToUpdate);
+    @PostMapping(value="/deleteCharacter", consumes="application/json")
+    public ResponseEntity<Encounter> deleteCharacter (@RequestBody Encounter encounter) {
+        Encounter updatedEncounter = encounterRepository.save(encounter);
+        return ResponseEntity.ok().body(updatedEncounter);
     }
 
 }
