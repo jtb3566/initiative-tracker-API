@@ -21,6 +21,31 @@ public class Encounter {
     @ManyToMany
     private final List<CreatedCharacter> characters = new ArrayList<>();
 
+    private String monsters = "";
+
+    public Encounter(Integer id, String name, String monsters) {
+        this.id = id;
+        this.name = name;
+        this.monsters = monsters;
+    }
+
+    public String getMonsters() {
+        return this.monsters;
+    }
+
+    public void setMonsters(String monsters) {
+        this.monsters = monsters;
+    }
+
+    public Encounter monsters(String monsters) {
+        setMonsters(monsters);
+        return this;
+    }
+
+    public Encounter(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Encounter() {
     }

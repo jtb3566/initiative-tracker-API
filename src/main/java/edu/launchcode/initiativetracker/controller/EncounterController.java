@@ -2,7 +2,6 @@ package edu.launchcode.initiativetracker.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.launchcode.initiativetracker.data.CreatedCharacterRespository;
 import edu.launchcode.initiativetracker.data.EncounterRepository;
-import edu.launchcode.initiativetracker.model.CreatedCharacter;
 import edu.launchcode.initiativetracker.model.Encounter;
 
 @CrossOrigin
@@ -24,8 +21,6 @@ import edu.launchcode.initiativetracker.model.Encounter;
 public class EncounterController {
     @Autowired
     private EncounterRepository encounterRepository;
-
-    @Autowired CreatedCharacterRespository createdCharacterRespository;
     
     @PostMapping(value="/create", consumes="application/json")
     public ResponseEntity<Encounter> createEncounter(@RequestBody Encounter encounter) {
@@ -55,6 +50,18 @@ public class EncounterController {
 
     @PostMapping(value="/deleteCharacter", consumes="application/json")
     public ResponseEntity<Encounter> deleteCharacter (@RequestBody Encounter encounter) {
+        Encounter updatedEncounter = encounterRepository.save(encounter);
+        return ResponseEntity.ok().body(updatedEncounter);
+    }
+
+    @PostMapping(value="/addMonster", consumes="application/json")
+    public ResponseEntity<Encounter> addMonster (@RequestBody Encounter encounter) {
+        Encounter updatedEncounter = encounterRepository.save(encounter);
+        return ResponseEntity.ok().body(updatedEncounter);
+    }
+
+    @PostMapping(value="/deleteMonster", consumes="application/json")
+    public ResponseEntity<Encounter> deleteMonster (@RequestBody Encounter encounter) {
         Encounter updatedEncounter = encounterRepository.save(encounter);
         return ResponseEntity.ok().body(updatedEncounter);
     }
