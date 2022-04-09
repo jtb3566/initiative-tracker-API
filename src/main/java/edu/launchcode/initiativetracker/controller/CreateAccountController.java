@@ -1,6 +1,8 @@
 package edu.launchcode.initiativetracker.controller;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +28,10 @@ public class CreateAccountController {
         return ResponseEntity.ok().body(newUser);
     }
 
-    @PostMapping(value = "/getAccountByEmail")
-    public ResponseEntity<User> returnUser (@RequestBody User user) throws URISyntaxException {
-        System.out.println(user.getEmail());
-        User account = userRepository.findByEmail(user.getEmail());
+    @PostMapping(value = "/getAccountByEmail", consumes = "application/x-www-form-urlencoded")
+    public ResponseEntity<User> returnUser (@RequestBody String email) throws URISyntaxException {
+        String formattedEmail = email.replaceAll("%40", "@").replaceAll("=", "");
+        User account = userRepository.findByEmail(formattedEmail);
         return ResponseEntity.ok().body(account);
     }
 }
