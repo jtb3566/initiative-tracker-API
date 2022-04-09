@@ -54,6 +54,10 @@ public class User {
         return this.email;
     }
 
+    public Integer getId() {
+        return this.id;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -90,8 +94,5 @@ public class User {
             "}";
     }
 
-    public Map<String, ?> getId() {
-        return null;
-    }
 
 }
